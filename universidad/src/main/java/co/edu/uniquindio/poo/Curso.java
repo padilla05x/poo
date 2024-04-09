@@ -2,11 +2,13 @@ package co.edu.uniquindio.poo;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Curso {
     private final String nombre;
     private final Collection<Estudiante> estudiantes;
+    public Object agregarEstudiante;
 
     /**
      * Método constructor de la clase Curso
@@ -86,5 +88,40 @@ public class Curso {
         return existe;
     }
 
+
+    /**
+     * Método para obtener la colección NO modificable de los estudiantes del curso en orden alfabético
+     * 
+     * @return la colección NO modificable de los estudiantes del curso en orden alfabético
+     */
+    public Collection<Estudiante> getListadoAlfabetico() {
+        var comparador = Comparator.comparing(Estudiante::nombres);
+        var estudiantesOrdenados = estudiantes.stream().sorted(comparador).toList();
+        return Collections.unmodifiableCollection(estudiantesOrdenados);
+    }
+
+
+    /**
+     * Método para obtener la colección NO modificable de los estudiantes del curso en orden descendente de la edad
+     * 
+     * @return la colección NO modificable de los estudiantes del curso en descendente por edad.
+     */
+    public Collection<Estudiante> getListadoEdadDescente() {
+        var comparador = Comparator.comparing(Estudiante::edad).reversed();
+        var estudiantesOrdenados = estudiantes.stream().sorted(comparador).toList();
+        return Collections.unmodifiableCollection(estudiantesOrdenados);
+    }
+
+
+    /**
+     * Método para obtener la colección NO modificable de los estudiantes del curso que son menores de edad
+     * 
+     * @return la colección NO modificable de los estudiantes del curso que son menores de edad.
+     */
+    public Collection<Estudiante> getListadoMenoresEdad() {
+        return estudiantes.stream()
+                .filter(estudiante -> estudiante.edad() < 18)
+                .toList();
+    }
 
 }

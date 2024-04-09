@@ -22,3 +22,6 @@ buildNumber.properties
 .DS_Store
 
 .idea
+proyecto/pom.xml
+proyecto/README.md
+.gitignore
